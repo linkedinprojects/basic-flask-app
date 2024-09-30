@@ -15,7 +15,7 @@ pipeline {
 
         stage("Build Docker Image") {
             steps {
-                sh "docker build -t linkedinprojects/basic-flask-app:${env.BUILD_NUMBER} ."
+                sh "docker build -t linkedinprojects/basic-flask-app:$BUILD_NUMBER ."
             }
         }
 
@@ -23,6 +23,9 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker') {
+                        // Tag the image with the build number
+                        sh "docker tag linkedinprojects/basic-flask-app:latest linkedinprojects/basic-flask-app:${env.BUILD_NUMBER}"
+                        echo "Logging into Docker Hub..."
                         sh "docker push linkedinprojects/basic-flask-app:${env.BUILD_NUMBER}"
                     }
                 }
