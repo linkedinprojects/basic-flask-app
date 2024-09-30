@@ -24,7 +24,7 @@ pipeline {
                 script {
                     withDockerRegistry(credentialsId: 'docker') {
                         // Tag the image with the build number
-                        sh "docker tag linkedinprojects/basic-flask-app:latest githublinkedprojects/basic-flask-app:${env.BUILD_NUMBER}"
+                        sh "docker tag githublinkedprojects/basic-flask-app:${env.BUILD_NUMBER} githublinkedprojects/basic-flask-app:${env.BUILD_NUMBER}"
                         echo "Logging into Docker Hub..."
                         sh "docker push githublinkedprojects/basic-flask-app:${env.BUILD_NUMBER}"
                     }
